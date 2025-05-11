@@ -1,6 +1,7 @@
 # AK12_computationally_aided_design.py
 
 1. choose your own system, and ask ChatGPT to change the this equation to an equation relevant for whatever you choose
+![Screenshot 2025-05-11 080024](https://github.com/user-attachments/assets/0cb2ae1e-4ed2-4a8f-884a-ecf1e9714a3c)
 
  # Δv = I_sp * g₀ * ln(m_i/m_f)  — Tsiolkovsky
 # For the AK-12, use muzzle energy: E_k = 0.5 m v²
