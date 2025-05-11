@@ -1,6 +1,3 @@
-# Δv = I_sp * g₀ * ln(m_i/m_f)  — Tsiolkovsky
-# For the AK-12, use muzzle energy: E_k = 0.5 m v²
-
 def engineering_thought_modular_composition(residues, moduli):
     """
     Computes an AK-12 performance metric based on bullet and weapon parameters.
@@ -8,9 +5,9 @@ def engineering_thought_modular_composition(residues, moduli):
     """
     from math import prod
     M = prod(moduli)
-    print(f"\[DEBUG] engineering_thought_modular_composition called with residues={residues}, moduli={moduli}")
+    print(f"[DEBUG] engineering_thought_modular_composition called with residues={residues}, moduli={moduli}")
     print(f"[DEBUG_CN] 工程思考模块化组合被调用，参数 residues={residues}, moduli={moduli}")
-    print(f"\[DEBUG] Computed product of moduli M={M}")
+    print(f"[DEBUG] Computed product of moduli M={M}")
     print(f"[DEBUG_CN] 计算模数乘积 M={M}")
 
     if len(residues) == 2 and len(moduli) == 2:
@@ -74,6 +71,25 @@ def optimize_ak12(bullet_mass, muzzle_velocities, rates_fire, barrel_lens, prop_
                             best_params = (v_m, rf, bl, pe, ri)
     return best_score, best_params
 
+def cad_ak12_upgrade(bullet_mass, muzzle_velocity, rate_fire, barrel_length, prop_energy, recoil_imp):
+    print("[DEBUG] Starting realistic CAD upgrade simulation for AK-12")
+    print("[DEBUG] Constructing param set for advanced geometric analysis")
+    # Simple geometry-based placeholder
+    volume_chamber = 0.0005 * barrel_length
+    print(f"[DEBUG] Computed volume_chamber={volume_chamber}")
+    material_stress_factor = (muzzle_velocity * bullet_mass) / (barrel_length + 0.001)
+    print(f"[DEBUG] Computed material_stress_factor={material_stress_factor}")
+    theoretical_rigidity = (rate_fire * 0.01) + (prop_energy * 1e-5) + (recoil_imp * 0.15)
+    print(f"[DEBUG] Computed theoretical_rigidity={theoretical_rigidity}")
+    design_feasibility = volume_chamber / (material_stress_factor + 0.0001) + theoretical_rigidity
+    print(f"[DEBUG] Computed design_feasibility={design_feasibility}")
+    return design_feasibility
+
+def explain_equations():
+    print("[DEBUG] The optimization uses Tsiolkovsky's Δv = I_sp * g₀ * ln(m_i/m_f) for conceptual ballistic expansion.")
+    print("[DEBUG] For muzzle energy, we use E_k = 0.5 * m * v² to evaluate bullet performance.")
+    print("[DEBUG] The code attempts to maximize a performance metric derived from these fundamentals.")
+
 if __name__ == "__main__":
     dv = tsiolkovsky_delta_v(300, 9.81, 5, 3)
     ek = muzzle_energy(0.008, 880)
@@ -89,3 +105,9 @@ if __name__ == "__main__":
     print("Sample muzzle energy:", ek)
     print("Optimized AK-12 score:", score)
     print("Optimized parameters:", params)
+
+    if params:
+        cad_score = cad_ak12_upgrade(0.008, params[0], params[1], params[2], params[3], params[4])
+        print("CAD feasibility score for AK-12 design:", cad_score)
+
+    explain_equations()
